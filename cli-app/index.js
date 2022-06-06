@@ -22,7 +22,7 @@ let questions = [
       'Ethereum',
       'Avalanche',
       'Binance',
-      // 'Polygon',
+      'Polygon',
       // 'Solana',
       // 'Phantom',
     ],

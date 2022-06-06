@@ -2,6 +2,7 @@ const {
   ETHERSCAN_API_KEY,
   SNOWTRACE_API_KEY,
   BSCSCAN_API_KEY,
+  POLYSCAN_API_KEY,
 } = require('./constants')
 
 const axios = require('axios')
@@ -10,6 +11,7 @@ const axios = require('axios')
 const ETHERSCAN_API = 'https://api.etherscan.io/api'
 const BSCSCAN_API = 'https://api.bscscan.com/api'
 const SNOWTRACE_API = 'https://api.snowtrace.io/api'
+const POLYSCAN_API = 'https://api.polygonscan.com/api'
 
 const getBlockByTimestamp = async (chain, timestamp) => {
   console.log(`Getting block for chain ${chain} and timestamp ${timestamp}`)
@@ -28,6 +30,9 @@ const getBlockByTimestamp = async (chain, timestamp) => {
       baseURL = BSCSCAN_API
       queryParams = `?module=block&action=getblocknobytime&timestamp=${timestamp}&closest=before&apikey=${BSCSCAN_API_KEY}`
       break
+    case 'Polygon':
+      baseURL = POLYSCAN_API
+      queryParams = `?module=block&action=getblocknobytime&timestamp=${timestamp}&closest=before&apikey=${POLYSCAN_API_KEY}`
     default:
       break
   }

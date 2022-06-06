@@ -88,3 +88,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+/cli-app/balances*
+Notes.md

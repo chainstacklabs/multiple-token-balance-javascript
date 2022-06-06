@@ -16,11 +16,14 @@ const TOKEN_LISTS = {
     'https://raw.githubusercontent.com/viaprotocol/tokenlists/main/tokenlists/avax.json',
   Binance:
     'https://raw.githubusercontent.com/viaprotocol/tokenlists/main/tokenlists/bsc.json',
+  Polygon:
+    'https://raw.githubusercontent.com/viaprotocol/tokenlists/main/tokenlists/polygon.json',
 }
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
 const SNOWTRACE_API_KEY = process.env.SNOWTRACE_API_KEY
 const BSCSCAN_API_KEY = process.env.BSCSCAN_API_KEY
+const POLYSCAN_API_KEY = process.env.POLYSCAN_API_KEY
 
 const ERC20_ABI = [
   {
@@ -94,5 +97,6 @@ module.exports = {
   ETHERSCAN_API_KEY,
   SNOWTRACE_API_KEY,
   BSCSCAN_API_KEY,
+  POLYSCAN_API_KEY,
   TOKEN_LISTS,
 }
