@@ -18,14 +18,7 @@ let questions = [
     type: 'list',
     name: 'protocol',
     message: 'Which blockchain do you want to query?',
-    choices: [
-      'Ethereum',
-      'Avalanche',
-      'Binance',
-      'Polygon',
-      // 'Solana',
-      // 'Phantom',
-    ],
+    choices: ['Ethereum', 'Avalanche', 'Binance', 'Polygon'],
     default: 0,
   },
   {

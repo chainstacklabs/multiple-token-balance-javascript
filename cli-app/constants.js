@@ -7,6 +7,7 @@ const ENDPOINTS = {
   Ethereum: process.env.ETH_ARCHIVE_NODE,
   Avalanche: process.env.AVA_ARCHIVE_NODE,
   Binance: process.env.BNB_ARCHIVE_NODE,
+  Polygon: process.env.POLY_ARCHIVE_NODE,
 }
 
 const TOKEN_LISTS = {
