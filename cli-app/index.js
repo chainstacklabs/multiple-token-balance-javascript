@@ -44,7 +44,7 @@ let questions = [
   {
     type: 'input',
     name: 'wallet',
-    message: 'What is the wallet address you want to check?',
+    message: 'What is the wallet address you want to check? (0x or ENS format)',
   },
 ]
 
@@ -58,6 +58,7 @@ inquirer
     // always init provider with archive node
     initProvider(answers.protocol)
 
+    // Checks date to generate block number
     if (answers.dateFrom == today) {
       console.log('Checking balance for today...')
       blockNumber = await getCurrentBlock()
@@ -68,7 +69,6 @@ inquirer
       const dateFrom = Math.floor(new Date(answers.dateFrom).getTime() / 1000)
 
       console.log('dateFrom', dateFrom)
-      // console.log('dateFrom.getTime()', dateFrom.)
       blockNumber = await getBlockByTimestamp(answers.protocol, dateFrom)
     }
 
@@ -79,7 +79,7 @@ inquirer
         answers.wallet,
         blockNumber
       )
-      console.log(`Wallet balance on ${today} is %o`, balanceDetails)
+      console.log(`Wallet balance is %o`, balanceDetails)
     } else {
       console.time('Retrieved tokens and balances in ')
       // multiple tokens

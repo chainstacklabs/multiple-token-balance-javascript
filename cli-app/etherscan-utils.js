@@ -41,7 +41,7 @@ const getBlockByTimestamp = async (chain, timestamp) => {
   // console.log('endpoint', endpoint)
   try {
     const res = await axios.get(endpoint)
-    // console.log('res.data', res.data)
+    console.log('res.data', res.data)
     return res.data.result
     // if (res.data.message == 'OK') return res.data.result
     // return res.data

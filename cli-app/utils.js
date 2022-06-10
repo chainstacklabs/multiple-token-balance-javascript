@@ -19,6 +19,12 @@ const getTokens = async (chain) => {
   return res.data
 }
 
+/**
+ *
+ * @param {*} hex the original value in hex format
+ * @param {*} decimals the number of decimals used by the token, default 18
+ * @returns
+ */
 const convertToNumber = (hex, decimals = 18) => {
   if (!hex) return 0
   // console.log(`Converting to number ${hex} with ${decimals} decimals`)
@@ -36,12 +42,14 @@ const getCurrentBlock = async () => {
   return res
 }
 
+/**
+ *
+ * @returns object with name, decimals and symbol of the erc20 token contract
+ */
 const getTokenDetails = async () => {
   console.log(`Retrieving ERC20 token details...`)
   const decimals = await contract.decimals()
-  // console.log('decimals >>', decimals)
   const name = await contract.name()
-  // console.log('name', name)
   const symbol = await contract.symbol()
 
   return { name, decimals, symbol }
@@ -69,9 +77,7 @@ const getSingleTokenBalance = async (tokenAddress, wallet, block) => {
   const balanceBN = await contract.balanceOf(wallet, {
     blockTag: +block,
   })
-  // console.log('balanceBN', balanceBN)
   const tokenDetails = await getTokenDetails()
-  // console.log('tokenDetails', tokenDetails)
   // transforms to number
   const balance = convertToNumber(balanceBN, tokenDetails.decimals)
 
@@ -81,28 +87,36 @@ const getSingleTokenBalance = async (tokenAddress, wallet, block) => {
     balance: balance,
   }
 }
-
+/**
+ * Loops through a token list to retrieve balances for a given wallet
+ * @param {*} tokenList array of tokens with address, symbol, decimals and name
+ * @param {*} wallet address to query balance from
+ * @param {*} block block number to query past balances
+ * @returns Array of balances
+ */
 const getAllTokenBalances = async (tokenList, wallet, block) => {
-  let results = []
+  // array to store all balance requests
   let proms = []
+  // array to store balances
+  let results = []
 
   for (const tkn of tokenList) {
-    // console.log('Creating request for ', tkn.name)
+    // create ERC20 token contract instance
     const erc20 = new ethers.Contract(tkn.address, ERC20_ABI, provider)
-
+    // save request in array of Promises
     proms.push(
       erc20.balanceOf(wallet, {
         blockTag: +block,
       })
     )
   }
-  const promsRes = await Promise.allSettled(proms)
-
-  for (let index = 0; index < promsRes.length; index++) {
-    // console.log('tokenList[index].decimals', tokenList[index].decimals)
-    // console.log('promsRes[index]', promsRes[index])
+  // actually requests all balances
+  const promiseResults = await Promise.allSettled(proms)
+  // loop through all responses to format response
+  for (let index = 0; index < promiseResults.length; index++) {
+    // transforms balance to decimal
     const bal = convertToNumber(
-      promsRes[index].value,
+      promiseResults[index].value,
       tokenList[index].decimals
     )
     results.push({
@@ -112,7 +126,6 @@ const getAllTokenBalances = async (tokenList, wallet, block) => {
     })
   }
 
-  // console.log('results', results)
   return results
 }
 
