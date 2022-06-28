@@ -1,8 +1,10 @@
 # The ultimate guide to token balances
 
+![](./img/balances-banner.jpeg)
+
 This repository contains code examples to obtain balances from multiple ERC20 tokens for a blockchain wallet.
 
-Check out `Article.md` file for a complete description of how to query balances.
+Check out [the article in the Chainstack blog](https://chainstack.com/ultimate-guide-erc20-token-balance/) for a complete description of how to query balances.
 
 ## CLI app
 
